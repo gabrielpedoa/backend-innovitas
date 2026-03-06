@@ -12,3 +12,34 @@ generator client {
 datasource db {
   provider = "sqlite"
 }
+
+model Users {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  characters Characters[]
+}
+
+model Characters {
+  id                    Int    @id @default(autoincrement())
+  original_character_id Int
+  name                  String
+  species               String
+  gender                String
+  origin                String
+  location              String
+  image                 String
+  status                String
+
+  user_id Int
+  user    Users @relation(fields: [user_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([user_id, original_character_id])
+}
