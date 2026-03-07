@@ -1,16 +1,14 @@
 import jwt from "jsonwebtoken";
-import loadEnv from "../../main/config/dotenv";
-
-void loadEnv();
+import { env } from "../../main/config/dotenv";
 
 export class JwtService {
   public generateToken(payload: object) {
-    return jwt.sign(payload, process.env.JWT_SECRET!, {
+    return jwt.sign(payload, env.jtwSecret!, {
       expiresIn: "1d",
     });
   }
 
   verifyToken(token: string) {
-    return jwt.verify(token, process.env.JWT_SECRET!);
+    return jwt.verify(token, env.jtwSecret!);
   }
 }

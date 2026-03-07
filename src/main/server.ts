@@ -1,11 +1,7 @@
 import cors from "cors";
 import express from "express";
 import dataBase from "./config/dataBase";
-import loadEnv from "./config/dotenv";
-
-void loadEnv();
-
-const PORT = process.env.PORT;
+import { env } from "./config/dotenv";
 
 class Server {
   private app = express();
@@ -15,8 +11,8 @@ class Server {
   }
 
   private start() {
-    const callback = () => console.log("Server running at:", PORT);
-    this.app.listen(PORT, callback);
+    const callback = () => console.log("Server running at:", env.serverPort);
+    this.app.listen(env.serverPort, callback);
   }
 
   public bootstrap() {
