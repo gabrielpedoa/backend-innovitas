@@ -1,6 +1,3 @@
-export interface IAuthUsecase {
-  execute: ({
-    email,
-    password,
-  }: LoginRequest) => Promise<{ user: { id: number; name: string; email: string }; token: string }>;
+export interface IAuthUsecase<In, Out> {
+  execute: (data: In) => Promise<Out>;
 }
