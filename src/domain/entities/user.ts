@@ -14,8 +14,8 @@ export class UserEntity {
   private validate() {
     if (!this.props.name) throw new Error("Name is required");
     if (!this.props.email.includes("@")) throw new Error("Invalid email");
-    if (this.props.password.length < 6)
-      throw new Error("Password must have at least 6 characters");
+    if (!this.props.password) throw new Error("Password hash is required");
+    if (this.props.password.length < 60) throw new Error("Invalid password hash");
   }
 
   public changeName(name: string) {
@@ -34,7 +34,7 @@ export class UserEntity {
     this.props.updated_at = new Date();
   }
 
-  public getUserDomainEntity() {
+  public getProps() {
     return {
       ...this.props,
     };

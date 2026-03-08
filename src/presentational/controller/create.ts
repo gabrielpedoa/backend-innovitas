@@ -1,6 +1,5 @@
 import { ICreateUsecase } from "../../domain/useCases/create";
 import { BadRequest, Created, ExceptionError } from "../helpers/httpResponse";
-import { ISchemaValidator } from "../helpers/schema-validator";
 
 export class CreateController<In, Out> implements IController<In, unknown> {
   constructor(

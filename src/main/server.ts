@@ -3,6 +3,7 @@ import express from "express";
 import dataBase from "./config/dataBase";
 import { env } from "./config/dotenv";
 import { setupSwagger } from "./config/swagger";
+import routes from "./router";
 
 class Server {
   private app = express();
@@ -20,7 +21,7 @@ class Server {
   public bootstrap() {
     this.middlewares();
     setupSwagger(this.app);
-    // routes(this.app);
+    routes(this.app);
     dataBase();
     this.start();
   }

@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-export class PasswordService {
+export class HashService {
   public async makeHash(password: string) {
     return bcrypt.hash(password, 10);
   }
