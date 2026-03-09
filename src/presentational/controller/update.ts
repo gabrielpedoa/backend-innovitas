@@ -1,6 +1,5 @@
 import { IUpdateUsecase } from "../../domain/useCases/update";
 import { BadRequest, ExceptionError, Ok } from "../helpers/httpResponse";
-import { ISchemaValidator } from "../helpers/schema-validator";
 
 export class UpdateController<T> implements IController<T, unknown> {
   constructor(

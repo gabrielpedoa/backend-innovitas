@@ -1,3 +1,3 @@
 export interface ILoadByIdUsecase<T> {
-  execute: (data: { id: string }) => Promise<T | null>;
+  execute: (id: string) => Promise<T | null>;
 }

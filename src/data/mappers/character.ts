@@ -10,7 +10,7 @@ export class CharacterMapper {
       image: apiCharacter.image,
       status: apiCharacter.status,
       user_id: userId,
-      created_at: apiCharacter.created,
+      created_at: new Date(),
     };
   }
 }

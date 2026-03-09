@@ -3,7 +3,7 @@ import { rickAndMortyApi } from "../../main/config/rickMortyApi";
 export class RickAndMortyApiService {
   public async loadPaginatedCharacters(params: LoadPaginatedParams) {
     try {
-      const response = await rickAndMortyApi.get<ICharacter[]>("/character", {
+      const response = await rickAndMortyApi.get<IDefaultApiResponse<ICharacter[]>>("/character", {
         params,
       });
 
@@ -16,7 +16,7 @@ export class RickAndMortyApiService {
 
   public async loadCharacterById(id: string) {
     try {
-      const response = await rickAndMortyApi.get<ICharacter>(`/character/${id}`);
+      const response = await rickAndMortyApi.get<IDefaultApiResponse<ICharacter>>(`/character/${id}`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -25,7 +25,7 @@ export class RickAndMortyApiService {
   }
   public async loadAllEpisodes() {
     try {
-      const response = await rickAndMortyApi.get<IEpisodes[]>("/episode");
+      const response = await rickAndMortyApi.get<IDefaultApiResponse<IEpisodes[]>>("/episode");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -34,7 +34,7 @@ export class RickAndMortyApiService {
   }
   public async loadAllLocations() {
     try {
-      const response = await rickAndMortyApi.get<ILocation[]>("/location");
+      const response = await rickAndMortyApi.get<IDefaultApiResponse<ILocation[]>>("/location");
       return response.data;
     } catch (error) {
       console.log(error);
