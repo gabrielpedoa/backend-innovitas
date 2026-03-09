@@ -13,6 +13,16 @@ export class RickAndMortyApiService {
       throw new Error("Failed to load characters");
     }
   }
+
+  public async loadCharacterById(id: string) {
+    try {
+      const response = await rickAndMortyApi.get<ICharacter>(`/character/${id}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Failed to load characters");
+    }
+  }
   public async loadAllEpisodes() {
     try {
       const response = await rickAndMortyApi.get<IEpisodes[]>("/episode");

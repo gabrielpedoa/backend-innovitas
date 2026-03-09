@@ -1,7 +1,12 @@
 import { Router } from "express";
 import expressAdapter from "../../adapters/expressAdapter";
-import { LoadCharactersUseCaseControllerFactory } from "../../factory/controller/characters/loadCharacters";
+import verifyAuth from "../../middlewares/verifyAuth";
+import {
+  CreateCharacterUseCaseControllerFactory,
+  LoadCharactersUseCaseControllerFactory,
+} from "../../factory/controller/characters";
 
 export default async (router: Router) => {
-  router.get("/characters", expressAdapter(LoadCharactersUseCaseControllerFactory()));
+  router.get("/characters", verifyAuth, expressAdapter(LoadCharactersUseCaseControllerFactory()));
+  router.post("/characters", verifyAuth, expressAdapter(CreateCharacterUseCaseControllerFactory()));
 };

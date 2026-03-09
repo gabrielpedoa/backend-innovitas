@@ -3,6 +3,7 @@ type IUser = {
   name: string;
   email: string;
   password: string;
+  characters: ICharacter[];
   created_at: Date;
   updated_at: Date;
 };
