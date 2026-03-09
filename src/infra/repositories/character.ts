@@ -15,4 +15,19 @@ export class CharacterRepository {
       },
     });
   }
+
+  public async update(data: ICharacter): Promise<ICharacter> {
+    return await prisma.characters.update({
+      where: { id: data.id },
+      data,
+    });
+  }
+
+  public async delete(characterId: number) {
+    await prisma.characters.delete({
+      where: { id: characterId },
+    });
+
+    return true;
+  }
 }
