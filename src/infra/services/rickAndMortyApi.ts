@@ -19,7 +19,7 @@ export class RickAndMortyApiService {
       const response = await rickAndMortyApi.get<IDefaultApiResponse<ICharacter>>(`/character/${id}`);
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       throw new Error("Failed to load characters");
     }
   }
