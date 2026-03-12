@@ -2,22 +2,63 @@
 
 API REST para gerenciamento de personagens da série Rick and Morty, com autenticação de usuários e persistência local. O backend integra a [Rick and Morty API](https://rickandmortyapi.com/) para buscar personagens e permite que usuários registrados salvem seus favoritos no banco de dados.
 
+## Setup do Projeto
+
+### 1. Clonar o repositório
+
+```bash
+git clone <url-do-repositorio>
+cd backend
+```
+
+### 2. Instalar dependências
+
+```bash
+npm install
+```
+
+### 3. Configurar variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+DATABASE_URL="file:./prisma/dev.db"
+JWT_SECRET="sua-chave-secreta-aqui"
+PORT=3000
+RICKMORTYAPI_URL="https://rickandmortyapi.com/api"
+```
+
+### 4. Gerar banco de dados e migrations (se necessário)
+
+```bash
+npx prisma generate
+npx prisma migrate dev
+```
+
+### 5. Iniciar o servidor
+
+```bash
+npm run dev
+```
+
+O servidor estará disponível em `http://localhost:3000`. A documentação Swagger fica em `http://localhost:3000/api-docs`.
+
 ## Tecnologias Utilizadas
 
-| Tecnologia | Uso |
-|------------|-----|
-| **Node.js** | Runtime JavaScript |
-| **TypeScript** | Tipagem estática e segurança de tipos |
-| **Express** | Framework web para API REST |
-| **Prisma** | ORM com SQLite (Better-SQLite3) |
-| **Zod** | Validação de schemas e dados de entrada |
-| **JWT** | Autenticação via tokens |
-| **bcrypt** | Hash de senhas |
-| **Axios** | Cliente HTTP para APIs externas |
-| **Swagger (OpenAPI)** | Documentação da API |
-| **cookie-parser** | Manipulação de cookies |
-| **CORS** | Controle de origem cross-origin |
-| **dotenv** | Variáveis de ambiente |
+| Tecnologia            | Uso                                     |
+| --------------------- | --------------------------------------- |
+| **Node.js**           | Runtime JavaScript                      |
+| **TypeScript**        | Tipagem estática e segurança de tipos   |
+| **Express**           | Framework web para API REST             |
+| **Prisma**            | ORM com SQLite (Better-SQLite3)         |
+| **Zod**               | Validação de schemas e dados de entrada |
+| **JWT**               | Autenticação via tokens                 |
+| **bcrypt**            | Hash de senhas                          |
+| **Axios**             | Cliente HTTP para APIs externas         |
+| **Swagger (OpenAPI)** | Documentação da API                     |
+| **cookie-parser**     | Manipulação de cookies                  |
+| **CORS**              | Controle de origem cross-origin         |
+| **dotenv**            | Variáveis de ambiente                   |
 
 ## Arquitetura do Projeto
 
@@ -26,7 +67,7 @@ O projeto segue princípios de **Clean Architecture** e **Layered Architecture**
 ### Camadas
 
 - **Domain / Entities** — Entidades de domínio com regras de negócio e validações básicas (`CharacterEntity`, `UserEntity`).
-- **Domain / Use Cases (Interfaces)** — Contratos dos casos de uso; define *o que* deve ser feito, não *como*.
+- **Domain / Use Cases (Interfaces)** — Contratos dos casos de uso; define _o que_ deve ser feito, não _como_.
 - **Data Layer** — Implementações dos casos de uso, mappers e protocols (interfaces de repositórios e serviços externos).
 - **Infra Layer** — Implementações concretas: Prisma, JWT, bcrypt, Rick and Morty API, etc.
 - **Repositories** — Abstrações para acesso a dados; implementam os protocols da camada de dados.
@@ -37,13 +78,13 @@ O projeto segue princípios de **Clean Architecture** e **Layered Architecture**
 
 ### Padrões Aplicados
 
-| Padrão | Aplicação |
-|--------|-----------|
-| **Clean Architecture** | Domínio isolado, dependências apontando para dentro; infra depende do domínio |
-| **Repository Pattern** | Interfaces em `data/protocols/repository`, implementações em `infra/repositories` |
-| **Service Layer** | Use cases orquestram lógica; serviços externos (JWT, Hash, API) via interfaces |
-| **Factory Pattern** | `main/factory` monta controllers e use cases com dependências injetadas |
-| **Dependency Injection** | Dependências passadas via construtor nos use cases e controllers |
+| Padrão                   | Aplicação                                                                         |
+| ------------------------ | --------------------------------------------------------------------------------- |
+| **Clean Architecture**   | Domínio isolado, dependências apontando para dentro; infra depende do domínio     |
+| **Repository Pattern**   | Interfaces em `data/protocols/repository`, implementações em `infra/repositories` |
+| **Service Layer**        | Use cases orquestram lógica; serviços externos (JWT, Hash, API) via interfaces    |
+| **Factory Pattern**      | `main/factory` monta controllers e use cases com dependências injetadas           |
+| **Dependency Injection** | Dependências passadas via construtor nos use cases e controllers                  |
 
 ## Estrutura de Pastas
 
@@ -110,62 +151,21 @@ Route → Middleware (opcional) → Express Adapter → Controller → Use Case 
 6. **Repository / Service** — Acessa banco (Prisma) ou APIs externas (Rick and Morty).
 7. **Response** — O adapter serializa a resposta e define cookies, se houver.
 
-## Setup do Projeto
-
-### 1. Clonar o repositório
-
-```bash
-git clone <url-do-repositorio>
-cd backend
-```
-
-### 2. Instalar dependências
-
-```bash
-npm install
-```
-
-### 3. Configurar variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto:
-
-```env
-DATABASE_URL="file:./prisma/dev.db"
-JWT_SECRET="sua-chave-secreta-aqui"
-PORT=3000
-RICKMORTYAPI_URL="https://rickandmortyapi.com/api"
-```
-
-### 4. Gerar banco de dados e migrations (se necessário)
-
-```bash
-npx prisma generate
-npx prisma migrate dev
-```
-
-### 5. Iniciar o servidor
-
-```bash
-npm run dev
-```
-
-O servidor estará disponível em `http://localhost:3000`. A documentação Swagger fica em `http://localhost:3000/api-docs`.
-
 ## Variáveis de Ambiente
 
-| Variável | Descrição | Obrigatória |
-|----------|-----------|-------------|
-| `DATABASE_URL` | URL do banco (ex: `file:./prisma/dev.db` para SQLite) | Sim |
-| `JWT_SECRET` | Chave para assinar e verificar tokens JWT | Sim |
-| `PORT` | Porta do servidor HTTP | Não (usa default do Express) |
-| `RICKMORTYAPI_URL` | URL base da Rick and Morty API | Sim |
+| Variável           | Descrição                                             | Obrigatória                  |
+| ------------------ | ----------------------------------------------------- | ---------------------------- |
+| `DATABASE_URL`     | URL do banco (ex: `file:./prisma/dev.db` para SQLite) | Sim                          |
+| `JWT_SECRET`       | Chave para assinar e verificar tokens JWT             | Sim                          |
+| `PORT`             | Porta do servidor HTTP                                | Não (usa default do Express) |
+| `RICKMORTYAPI_URL` | URL base da Rick and Morty API                        | Sim                          |
 
 ## Scripts Disponíveis
 
-| Script | Comando | Descrição |
-|--------|---------|-----------|
-| `dev` | `npm run dev` | Inicia o servidor em modo desenvolvimento com hot-reload (`ts-node-dev`) |
-| `test` | `npm run test` | Executa o script de teste (`src/test.ts`) |
+| Script | Comando        | Descrição                                                                |
+| ------ | -------------- | ------------------------------------------------------------------------ |
+| `dev`  | `npm run dev`  | Inicia o servidor em modo desenvolvimento com hot-reload (`ts-node-dev`) |
+| `test` | `npm run test` | Executa o script de teste (`src/test.ts`)                                |
 
 ## Boas Práticas Utilizadas
 
@@ -181,19 +181,19 @@ O servidor estará disponível em `http://localhost:3000`. A documentação Swag
 
 ## Endpoints Principais
 
-| Método | Rota | Descrição | Auth |
-|--------|------|-----------|------|
-| POST | `/api/auth/login` | Login | Não |
-| POST | `/api/auth/logout` | Logout | Sim |
-| POST | `/api/users` | Cadastro de usuário | Não |
-| GET | `/api/users/:id` | Personagens do usuário | Sim |
-| GET | `/api/characters` | Lista personagens (Rick and Morty API) | Não |
-| POST | `/api/characters` | Salva personagem do usuário | Sim |
-| GET | `/api/characters/:id` | Personagem por ID | Não |
-| PUT | `/api/characters/:id` | Atualiza personagem | Sim |
-| DELETE | `/api/characters/:id` | Remove personagem | Sim |
-| GET | `/api/dashboard` | Dashboard não autenticado | Não |
-| GET | `/api/dashboard/:id` | Dashboard do usuário | Sim |
+| Método | Rota                  | Descrição                              | Auth |
+| ------ | --------------------- | -------------------------------------- | ---- |
+| POST   | `/api/auth/login`     | Login                                  | Não  |
+| POST   | `/api/auth/logout`    | Logout                                 | Sim  |
+| POST   | `/api/users`          | Cadastro de usuário                    | Não  |
+| GET    | `/api/users/:id`      | Personagens do usuário                 | Sim  |
+| GET    | `/api/characters`     | Lista personagens (Rick and Morty API) | Não  |
+| POST   | `/api/characters`     | Salva personagem do usuário            | Sim  |
+| GET    | `/api/characters/:id` | Personagem por ID                      | Não  |
+| PUT    | `/api/characters/:id` | Atualiza personagem                    | Sim  |
+| DELETE | `/api/characters/:id` | Remove personagem                      | Sim  |
+| GET    | `/api/dashboard`      | Dashboard não autenticado              | Não  |
+| GET    | `/api/dashboard/:id`  | Dashboard do usuário                   | Sim  |
 
 ## Considerações Finais
 
