@@ -19,11 +19,11 @@ npm install
 
 ### 3. Configurar variáveis de ambiente
 
-Crie um arquivo `.env` na raiz do projeto:
+Crie um arquivo `.env` na raiz do projeto: (vide .env.exemple disponivel)
 
 ```env
 DATABASE_URL="file:./prisma/dev.db"
-JWT_SECRET="sua-chave-secreta-aqui"
+JWT_SECRET="queroEntrarNaInnovitas@k"
 PORT=3000
 RICKMORTYAPI_URL="https://rickandmortyapi.com/api"
 ```
