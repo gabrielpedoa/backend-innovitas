@@ -1,15 +1,15 @@
 import { IUserRepository } from "../../protocols/repository/users";
 
-export class DashboardUseCase {
+export class DashboardAuthUseCase {
   constructor(
     private readonly rickMortyApiService: IRickAndMortyApiService,
     private readonly usersRepository: IUserRepository,
   ) {}
   async execute(id: string) {
-    console.log(id)
     const characters = await this.rickMortyApiService.loadPaginatedCharacters({ page: 0 });
     const episodes = await this.rickMortyApiService.loadAllEpisodes();
     const locations = await this.rickMortyApiService.loadAllLocations();
+
     const user = await this.usersRepository.loadById(Number(id));
     const myFavoritesCharacters =
       user?.characters.sort((a, b) => b.created_at.getTime() - a.created_at.getTime()).slice(0, 3) ?? null;
