@@ -11,7 +11,6 @@ export class CreateCharacterUseCase {
 
   async execute(data: IData) {
     const character = CharacterMapper.fromApiToDomain(data, data.user_id);
-
     const characterEntity = new CharacterEntity(character);
 
     const { original_character_id, user_id } = characterEntity.getCharacterDomainEntity();

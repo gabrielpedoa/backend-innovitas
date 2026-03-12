@@ -12,6 +12,6 @@ export class CharacterEntity {
   }
 
   public getCharacterDomainEntity() {
-    return this.props;
+    return { ...this.props, created_at: this.props.created_at ?? new Date() };
   }
 }
