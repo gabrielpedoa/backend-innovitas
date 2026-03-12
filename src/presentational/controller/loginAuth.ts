@@ -34,7 +34,9 @@ export class LoginAuthController<In> {
             value: response.token,
             options: {
               httpOnly: true,
-              sameSite: "strict",
+              sameSite: "lax",
+              secure: false,
+              path: "/",
               maxAge: 1000 * 60 * 60 * 24,
             },
           },

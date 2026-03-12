@@ -6,14 +6,23 @@ const jwtService = new JwtService();
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const statusCode = Unauthorized().statusCode;
+
   try {
-    const authorization = req.headers?.authorization;
-    if (!authorization) return res.status(statusCode).send("User Unauthorized Access!");
-    const token = authorization.split(" ")[1];
+    const authorization = req.headers.authorization;
+    const cookieToken = req.cookies?.access_token;
+
+    let token: string | undefined;
+
+    if (authorization) token = authorization.split(" ")[1];
+
+    if (!token && cookieToken) token = cookieToken;
+
     if (!token) return res.status(statusCode).send("User Unauthorized Access!");
+
     await jwtService.verifyToken(token);
-    next();
-  } catch (error) {
+
+    return next();
+  } catch {
     return res.status(statusCode).send("User Unauthorized Access!");
   }
 };

@@ -4,12 +4,16 @@ import dataBase from "./config/dataBase";
 import { env } from "./config/dotenv";
 import { setupSwagger } from "./config/swagger";
 import routes from "./router";
+import cookieParser from "cookie-parser";
 
 class Server {
   private app = express();
 
   private middlewares() {
-    this.app.use(cors({ origin: "*", credentials: true }));
+    this.app.use(cookieParser());
+    this.app.use(
+      cors({ origin: "http://localhost:5173", credentials: true, methods: ["GET", "POST", "PUT", "DELETE"] }),
+    );
     this.app.use(express.json());
   }
 

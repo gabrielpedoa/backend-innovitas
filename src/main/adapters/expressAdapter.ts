@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
 
-type AuthResponse = {
-  token?: string;
-};
-
 export default <In>(controller: IController<In, unknown>) => {
   return async (req: Request, res: Response) => {
     try {
