@@ -32,7 +32,7 @@ RICKMORTYAPI_URL="https://rickandmortyapi.com/api"
 
 ```bash
 npx prisma generate
-npx prisma migrate dev
+npx prisma db push
 ```
 
 ### 5. Iniciar o servidor
